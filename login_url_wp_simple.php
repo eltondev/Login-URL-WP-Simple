@@ -8,19 +8,16 @@ Author: EltonDEV
 Author URI: http://eltondev.com.br
 */
 
-register_activation_hook( __FILE__, 'login_url_wp_activation' );
-function login_url_wp() {
-    login_url_wp_rewrite();
-    flush_rewrite_rules();
+register_activation_hook( __FILE__, 'login_url_wp_true' );
+    function login_url_wp_true() {
+      login_url_wp_rewrite();
+      flush_rewrite_rules();
 }
- 
-register_deactivation_hook( __FILE__, 'login_url_wp_deactivate' );
-function login_url_wp_deactivate() {
-    flush_rewrite_rules();
+register_deactivation_hook( __FILE__, 'login_url_wp_false' );
+   function login_url_wp_false() {
+     flush_rewrite_rules();
 }
- 
-// Create new rewrite rule
-add_action( 'init', 'login_url_wp_deactivate_rewrite' );
-function login_url_wp_deactivate_rewrite() {
-    add_rewrite_rule( 'administrador/?$', 'wp-login.php', 'top' );
+add_action( 'init', 'login_url_wp_rewrite' );
+    function login_url_wp_rewrite() {
+      add_rewrite_rule( 'administrator/?$', 'wp-login.php', 'top' );
 }
